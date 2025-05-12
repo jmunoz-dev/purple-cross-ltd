@@ -1,18 +1,64 @@
 <script setup>
-  import IconBlock from '../blocks/IconBlock.vue'
+import { ref, watch } from 'vue'
+import { useDevice } from '@/composables/useDevice'
+import IconBlock from '../blocks/IconBlock.vue'
+
+const emit = defineEmits(['toggle-sidebar'])
+
+const { isMobile, isTablet, isDesktop } = useDevice()
+const isMenuOpen = ref(!isMobile) // Default to collapsed on mobile
+
+// Watch the device type to update the menu state when screen size changes
+watch([isMobile, isTablet, isDesktop], () => {
+  // Collapse the menu on mobile and tablet, expand on desktop
+  isMenuOpen.value = isDesktop.value ? true : false
+})
+
+const toggleSidebar = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  emit('toggle-sidebar', isMenuOpen.value)
+}
 </script>
 
 <template>
-  <aside class="w-64 bg-primary text-white flex flex-col">
-    <div class="h-16 px-6 py-4 text-xl font-bold border-b border-secondary">Purple Cross</div>
-    <nav class="flex-1 p-4 p-y-2">
-      <RouterLink to="/" class="block px-4 py-2 rounded hover:bg-secondary transition">
-        <div class="flex">
-          <IconBlock name="material-symbols:dashboard-rounded" />
-          Dashboard
+  <div class="flex z-10">
+    <aside
+      :class="isMenuOpen ? 'w-64' : 'w-16'"
+      class="bg-primary text-white flex flex-col transition-all duration-300 ease-in-out"
+    >
+      <div
+        class="h-16 px-4 py-2 text-xl font-bold border-b border-secondary content-center"
+        :class="{ 'self-center': !isMenuOpen }"
+      >
+        <div class="flex items-center justify-between">
+          <div v-if="isMenuOpen">Purple Cross</div>
+          <IconBlock
+            name="material-symbols:menu-rounded"
+            @click="toggleSidebar"
+            class="cursor-pointer"
+            :class="{ 'p-4': isMenuOpen }"
+          />
         </div>
-      </RouterLink>
-      <RouterLink to="/employees" class="block px-4 py-2 rounded hover:bg-secondary transition"> Employees </RouterLink>
-    </nav>
-  </aside>
+      </div>
+
+      <!-- Navigation section -->
+      <nav
+        class="flex flex-col gap-6 pt-6"
+        :class="isMenuOpen ? 'items-start p-4' : 'items-center px-2 py-4'"
+      >
+        <RouterLink to="/" class="block rounded hover:bg-secondary transition">
+          <div class="flex gap-4">
+            <IconBlock name="material-symbols:dashboard-rounded" />
+            <div v-if="isMenuOpen">Dashboard</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/employees" class="block rounded hover:bg-secondary transition">
+          <div class="flex gap-4">
+            <IconBlock name="fluent:people-team-20-filled" />
+            <div v-if="isMenuOpen">Employees</div>
+          </div>
+        </RouterLink>
+      </nav>
+    </aside>
+  </div>
 </template>
