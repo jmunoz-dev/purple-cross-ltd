@@ -14,11 +14,12 @@ This project is a frontend application built with Vue 3 to manage and display em
 ## Technologies Used
 
 - **Vue 3**: Frontend framework for building the user interface.
+
   - **Vue Router**: For managing routing and navigation within the app.
   - **Pinia**: State management library for handling the application state.
 
 - **CSS**: Styling for the user interface (UI)
-- **Extra Libraries**: 
+- **Extra Libraries**:
   - **Tailwind**
 
 ---
