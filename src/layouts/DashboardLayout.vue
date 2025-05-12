@@ -24,7 +24,7 @@ const handleVisibility = (menuOpen) => {
       <TopbarElement />
       <!-- Content Slot -->
       <main class="p-6 overflow-y-auto flex-1 bg-light">
-        <slot />
+        <RouterView />
       </main>
     </div>
   </div>
