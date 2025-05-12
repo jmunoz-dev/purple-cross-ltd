@@ -1,4 +1,4 @@
-import './styles/style.css'
+import './styles/styles.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
