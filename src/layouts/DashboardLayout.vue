@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import SidebarElement from '@/components/elements/SidebarElement.vue'
-import TopbarElement from '@/components/elements/TopbarElement.vue'
+import SidebarElement from '@/components/sections/SidebarSection.vue'
+import TopbarElement from '@/components/sections/TopbarSection.vue'
 import { useDevice } from '@/composables/useDevice'
 
 const dynamicClass = ref('')
