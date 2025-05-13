@@ -18,7 +18,18 @@
     @apply bg-secondary hover:bg-secondary-hover active:bg-secondary-active text-white;
   }
 
+  &.danger {
+    @apply bg-danger hover:bg-danger-hover active:bg-danger-active text-white;
+  }
+
   &.disabled {
     @apply pointer-events-none bg-disabled text-disabled font-normal border-transparent text-text;
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      @apply bg-disabled text-disabled border-transparent text-text;
+    }
   }
 }
