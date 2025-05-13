@@ -1,0 +1,105 @@
+.input-component:not([hidden]) {
+  @apply flex flex-col justify-end items-start gap-2;
+
+  input,
+  textarea {
+    @apply bg-white w-full p-3 rounded-radius outline outline-1 outline-white-active border-none justify-start items-center gap-2 inline-flex grow shrink basis-0 text-text text-base font-normal leading-normal resize-none relative;
+    @apply shadow-bottom-light;
+    &:disabled {
+      @apply outline-light-active bg-disabled text-text;
+    }
+
+    &:focus,
+    &:focus-visible {
+      @apply outline-2 outline-muted outline-offset-0;
+    }
+
+    &::placeholder {
+      @apply text-muted;
+    }
+  }
+
+  &.error {
+    input,
+    textarea {
+      &:not(.disabled):focus-visible {
+        @apply outline-danger;
+      }
+      @apply border-transparent outline-2 outline-danger outline;
+    }
+    .errors {
+      @apply text-danger text-xs font-normal min-h-4;
+    }
+    .state-icon {
+      @apply text-danger;
+    }
+  }
+  &.valid {
+    input,
+    textarea {
+      &:not(.disabled):focus-visible {
+        @apply outline-success;
+      }
+      @apply border-transparent outline-2 outline-success outline;
+    }
+
+    .state-icon {
+      @apply text-success;
+    }
+    &.error {
+      input,
+      textarea {
+        &:not(.disabled):focus-visible {
+          @apply outline-danger;
+        }
+        @apply border-transparent outline-2 outline-danger outline;
+      }
+      .errors {
+        @apply text-danger;
+      }
+      &:not(.disabled):focus-visible {
+        @apply outline-danger;
+      }
+      .state-icon {
+        @apply text-danger;
+      }
+    }
+  }
+  label {
+    @apply text-base font-normal leading-tight;
+  }
+  .description {
+    @apply text-muted text-sm font-normal leading-[17.50px];
+  }
+  .input-wrapper {
+    @apply flex w-full relative;
+  }
+
+  .state-icon svg {
+    @apply absolute top-1/2 -translate-y-1/2 right-2 w-6 h-6;
+  }
+
+  .input-wrapper:has(.icon-left) {
+    svg {
+      @apply relative top-1/2 -translate-y-1/2 right-3 left-3 w-6 h-6 text-muted;
+    }
+  }
+  .input-wrapper:has(.icon-left) {
+    input,
+    textarea {
+      @apply pl-11;
+    }
+  }
+  .input-wrapper:has(.state-icon, .action-icon) {
+    input,
+    textarea {
+      @apply pr-10;
+    }
+  }
+
+  .input-wrapper:has(.action-icon):has(.state-icon) {
+    .action-icon svg {
+      @apply absolute right-1;
+    }
+  }
+}
