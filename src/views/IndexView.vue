@@ -84,7 +84,7 @@ const addEmployee = () => {
             class="flex-grow"
             type="text"
             name="Date of employement"
-            placeholder="25/05/2025"
+            placeholder="2025-05-25"
             label="Date of employement"
             format="date"
             :validate="[{ type: 'required' }, { type: 'date' }]"

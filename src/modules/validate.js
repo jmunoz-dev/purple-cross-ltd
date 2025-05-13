@@ -113,7 +113,7 @@ const validateLetters = (value, name) => {
 }
 
 const validateDate = (value, name) => {
-  if (value && !value.match(/^[0-9/]+$/)) {
+  if (value && !value.match(/^[0-9/-]+$/)) {
     return {
       result: false,
       value: value,

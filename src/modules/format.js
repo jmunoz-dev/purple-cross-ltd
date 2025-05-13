@@ -18,14 +18,30 @@ export const format = (value, appliedFormattings) => {
 }
 
 const formatDate = (value) => {
-  const cleaned = value.toString().replace(/\D/g, '')
-  const trimmed = cleaned.slice(0, 8)
-  const matched = trimmed.match(/.{1,2}/g)
-  if (matched && matched.length === 4) {
-    const year = matched.splice(-2)
-    matched.push(year.join(''))
-  }
-  return matched ? matched.join('/') : ''
+  if (!value) return ''
+
+  const normalized = value
+    .toString()
+    .replace(/[^\d/-]/g, '') // solo números, / o -
+    .replace(/\//g, '-') // convertir / en -
+
+  const cleaned = normalized.replace(/-/g, '').slice(0, 8)
+
+  const hasDashAfterYear = normalized[4] === '-' && normalized.length === 5
+  const hasDashAfterMonth = normalized[7] === '-' && normalized.length === 8
+
+  const year = cleaned.slice(0, 4)
+  let month = cleaned.slice(4, 6)
+  let day = cleaned.slice(6, 8)
+
+  // Corregir valores máximos
+  if (month && parseInt(month) > 12) month = '12'
+  if (day && parseInt(day) > 31) day = '31'
+
+  if (hasDashAfterYear) return `${year}-`
+  if (hasDashAfterMonth) return `${year}-${month}-`
+
+  return [year, month, day].filter(Boolean).join('-')
 }
 
 const formattingsMap = {
