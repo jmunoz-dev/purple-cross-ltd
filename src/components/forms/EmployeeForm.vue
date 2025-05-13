@@ -4,7 +4,10 @@ import InputControl from '@/components/controls/InputControl.vue'
 import ButtonBlock from '@/components/blocks/ButtonBlock.vue'
 import { addEmployeeAction } from '@/modules/actions'
 
+const emit = defineEmits(['employee-created'])
+
 const isSubmitting = ref(false)
+const today = new Date().toISOString().split('T')[0]
 
 const name = ref('')
 const occupation = ref('')
@@ -43,6 +46,7 @@ const addEmployee = async () => {
   departmentInput.value.error = null
   dateInput.value.error = null
   isSubmitting.value = false
+  emit('employee-created')
 }
 </script>
 
@@ -85,10 +89,10 @@ const addEmployee = async () => {
       class="flex-grow"
       type="text"
       name="Date of employment"
-      placeholder="2025-05-25"
+      :placeholder="today"
       label="Date of employment"
       format="date"
-      :validate="[{ type: 'required' }, { type: 'date' }]"
+      :validate="[{ type: 'date' }]"
     />
 
     <div class="w-full mt-2">

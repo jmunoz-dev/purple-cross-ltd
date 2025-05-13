@@ -3,12 +3,14 @@ import ButtonBlock from '@/components/blocks/ButtonBlock.vue'
 import IconBlock from '@/components/blocks/IconBlock.vue'
 import ModalElement from '@/components/elements/ModalElement.vue'
 import TableElement from '@/components/elements/TableElement.vue'
+import EmployeeForm from '@/components/forms/EmployeeForm.vue'
 import router from '@/router'
 import { useEmployeeStore } from '@/stores/employee'
 import { ref } from 'vue'
 
 const storeEmployee = useEmployeeStore()
 const showConfirmationModal = ref(false)
+const showCreateModal = ref(false)
 const selectedId = ref()
 const loadingButton = ref(false)
 
@@ -57,7 +59,7 @@ const deleteData = async () => {
     ></TableElement>
 
     <div class="flex justify-end">
-      <ButtonBlock>
+      <ButtonBlock @button-clicked="showCreateModal = !showCreateModal">
         <div class="flex gap-2">
           Add new employee
           <IconBlock name="ri:user-add-line"></IconBlock>
@@ -65,6 +67,7 @@ const deleteData = async () => {
       </ButtonBlock>
     </div>
   </div>
+  <!-- Delete confirmation modal -->
   <ModalElement
     :show="showConfirmationModal"
     @close-modal-trigger="showConfirmationModal = !showConfirmationModal"
@@ -76,7 +79,14 @@ const deleteData = async () => {
           <div>Are you sure to continue?</div>
         </div>
         <div class="flex justify-between gap-6">
-          <ButtonBlock class="w-1/2" type="secondary" :disabled="loadingButton">Cancel</ButtonBlock>
+          <ButtonBlock
+            class="w-1/2"
+            type="secondary"
+            :disabled="loadingButton"
+            @button-clicked="showConfirmationModal = !showConfirmationModal"
+          >
+            Cancel
+          </ButtonBlock>
           <ButtonBlock
             class="w-1/2"
             type="danger"
@@ -87,6 +97,16 @@ const deleteData = async () => {
           </ButtonBlock>
         </div>
       </div>
+    </template>
+  </ModalElement>
+
+  <!-- Create new employee modal -->
+  <ModalElement :show="showCreateModal" @close-modal-trigger="showCreateModal = !showCreateModal">
+    <template #header>
+      <h2 class="text-lg font-semibold mb-4">New Employee Data</h2>
+    </template>
+    <template #content>
+      <EmployeeForm @employee-created="showCreateModal = !showCreateModal" />
     </template>
   </ModalElement>
 </template>
