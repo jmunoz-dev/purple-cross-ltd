@@ -1,4 +1,6 @@
 <script setup>
+import ButtonBlock from '@/components/blocks/ButtonBlock.vue'
+import IconBlock from '@/components/blocks/IconBlock.vue'
 import TableElement from '@/components/elements/TableElement.vue'
 import router from '@/router'
 import { useEmployeeStore } from '@/stores/employee'
@@ -30,7 +32,7 @@ const handleDelete = (id) => {
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full flex flex-col justify-between">
     <TableElement
       :data="storeEmployee.employees"
       :columns="columns"
@@ -39,5 +41,14 @@ const handleDelete = (id) => {
       @edit="handleEdit"
       @delete="handleDelete"
     ></TableElement>
+
+    <div class="flex justify-end">
+      <ButtonBlock>
+        <div class="flex gap-2">
+          Add new employee
+          <IconBlock name="ri:user-add-line"></IconBlock>
+        </div>
+      </ButtonBlock>
+    </div>
   </div>
 </template>
