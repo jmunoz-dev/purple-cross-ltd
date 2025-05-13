@@ -10,7 +10,6 @@ import plugin from './plugin'
 
 const init = async () => {
   try {
-    // const initialization = await initWebsite()
     const pinia = createPinia()
     pinia.use(piniaPluginPersistedstate)
 
