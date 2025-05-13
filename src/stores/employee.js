@@ -5,14 +5,17 @@ import employeesData from '@/configs/employeesData'
 export const useEmployeeStore = defineStore(
   'employee',
   () => {
-    const employees = ref([...employeesData])
+    const nextId = ref(Math.floor(Math.random() * 100))
 
-    function generateId() {
-      return Date.now().toString() + Math.random().toString(36).substring(2, 5)
-    }
+    const employees = ref(
+      employeesData.map((employee) => ({
+        id: nextId.value++,
+        ...employee,
+      })),
+    )
 
     function addEmployee(employee) {
-      employees.value.push({ id: generateId(), ...employee })
+      employees.value.push({ id: nextId.value++, ...employee })
     }
 
     function updateEmployee(id, updatedData) {
