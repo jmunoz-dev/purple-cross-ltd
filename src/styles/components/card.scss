@@ -1,5 +1,5 @@
 .card-component {
-  @apply inline-flex rounded-radius shadow-bottom-medium p-4;
+  @apply inline-flex rounded-radius shadow-bottom-medium p-4 self-baseline;
 
   .card-elements {
     @apply flex flex-col flex-wrap rounded-radius w-full bg-transparent;

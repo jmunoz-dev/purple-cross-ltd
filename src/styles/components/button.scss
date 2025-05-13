@@ -2,7 +2,7 @@
   @apply rounded-radius border-2 border-transparent content-center;
 
   .button {
-    @apply flex flex-row justify-center items-center py-1 px-2.5 w-full whitespace-nowrap content-center;
+    @apply flex flex-row justify-center items-center py-1.5 px-2.5 w-full whitespace-nowrap content-center;
 
     &:focus,
     &:focus-visible {
