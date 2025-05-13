@@ -58,6 +58,7 @@ export default {
         text: '#3c3f4e',
         'text-hover': '#353740',
         'text-active': '#2e2f39',
+        muted: '#8a8d99',
 
         white: '#f8f8f8',
         'white-hover': '#e4e4e4',
