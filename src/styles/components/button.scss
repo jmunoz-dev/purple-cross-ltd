@@ -1,0 +1,24 @@
+.button-component {
+  @apply rounded-radius border-2 border-transparent content-center;
+
+  .button {
+    @apply flex flex-row justify-center items-center py-1 px-2.5 w-full whitespace-nowrap content-center;
+
+    &:focus,
+    &:focus-visible {
+      @apply rounded-radius outline-2 outline-offset-4;
+    }
+  }
+
+  &.primary {
+    @apply bg-primary border-2 border-transparent  hover:bg-primary-hover active:bg-primary-active text-white;
+  }
+
+  &.secondary {
+    @apply bg-secondary hover:bg-secondary-hover active:bg-secondary-active text-white;
+  }
+
+  &.disabled {
+    @apply pointer-events-none bg-disabled text-disabled font-normal border-transparent text-text;
+  }
+}
