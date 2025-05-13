@@ -1,0 +1,69 @@
+.modal-component {
+  @apply flex justify-center items-center fixed top-0 left-0 w-full h-full z-50 bg-black bg-opacity-70;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &.open {
+    opacity: 1;
+  }
+
+  .modal-body {
+    @apply w-[632px] max-h-[632px] bg-white relative p-5 overflow-y-auto rounded-radius;
+    @apply flex flex-col justify-center items-center;
+
+    &.open {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      .modal-close-icon {
+        @apply cursor-pointer absolute text-3xl z-10 right-4 top-4;
+      }
+    }
+    .modal-content {
+      @apply w-full;
+    }
+  }
+}
+
+body:has(.modal-component.open) {
+  @apply overflow-hidden;
+}
+
+.modal-component .nav-model {
+  .modal-body {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .modal-body {
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+  }
+  .modal-enter-active,
+  .modal-leave-active {
+    .modal-body {
+      transition:
+        opacity 0.3s,
+        transform 0.3s;
+    }
+  }
+
+  .modal-enter-from,
+  .modal-leave-to {
+    .modal-body {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  .modal-enter-to,
+  .modal-leave-from {
+    .modal-body {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

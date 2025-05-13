@@ -22,8 +22,8 @@ const formatDate = (value) => {
 
   const normalized = value
     .toString()
-    .replace(/[^\d/-]/g, '') // solo números, / o -
-    .replace(/\//g, '-') // convertir / en -
+    .replace(/[^\d/-]/g, '') // only numbers, / or -
+    .replace(/\//g, '-') // convert  / into -
 
   const cleaned = normalized.replace(/-/g, '').slice(0, 8)
 
@@ -34,7 +34,6 @@ const formatDate = (value) => {
   let month = cleaned.slice(4, 6)
   let day = cleaned.slice(6, 8)
 
-  // Corregir valores máximos
   if (month && parseInt(month) > 12) month = '12'
   if (day && parseInt(day) > 31) day = '31'
 
