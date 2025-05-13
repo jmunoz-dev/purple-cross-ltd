@@ -85,7 +85,7 @@ const focusInput = () => {
   inputRef.value.focus()
 }
 
-defineExpose({ validate, clickInput, focusInput, inputRef })
+defineExpose({ validate, clickInput, focusInput, inputRef, error })
 </script>
 
 <template>
