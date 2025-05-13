@@ -4,7 +4,7 @@ export const addEmployeeAction = (name, occupation, department, dateOfEmployment
   const employeeStore = useEmployeeStore()
 
   employeeStore.addEmployee({
-    name: name.value,
+    fullName: name.value,
     occupation: occupation.value,
     department: department.value,
     dateOfEmployment: dateOfEmployment.value,

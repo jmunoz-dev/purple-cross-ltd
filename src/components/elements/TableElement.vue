@@ -50,6 +50,13 @@ const sortedData = computed(() => {
 
 const totalPages = computed(() => Math.ceil(sortedData.value.length / props.perPage))
 
+const tableMinHeight = computed(() => {
+  const rowHeight = 57
+  const headerHeight = 44
+
+  return `${headerHeight + props.perPage * rowHeight}px`
+})
+
 const loadPage = () => {
   isLoading.value = true
   setTimeout(() => {
@@ -87,8 +94,12 @@ const changeSort = (key) => {
     </div>
 
     <!-- Table -->
-    <div class="overflow-x-auto relative bg-white shadow rounded-lg min-h-[300px]">
+    <div
+      class="overflow-x-auto relative bg-white shadow rounded-lg transition-all duration-300"
+      :style="{ minHeight: tableMinHeight }"
+    >
       <table class="w-full min-w-[600px] text-sm text-left text-text">
+        <!-- Headers siempre visibles -->
         <thead class="bg-light uppercase text-xs text-gray-500 border-b border-neutral">
           <tr>
             <th
@@ -96,9 +107,7 @@ const changeSort = (key) => {
               :key="col.key"
               @click="col.sortable ? changeSort(col.key) : null"
               class="px-6 py-3 cursor-pointer"
-              :class="{
-                'sticky left-0 z-10 bg-white border-r': index === 0,
-              }"
+              :class="{ 'sticky left-0 z-10 bg-white border-r': index === 0 }"
             >
               {{ col.label }}
               <IconBlock
@@ -110,19 +119,23 @@ const changeSort = (key) => {
             <th class="px-6 py-3"></th>
           </tr>
         </thead>
+
+        <!-- Contenido dinámico -->
         <tbody>
-          <tr v-if="!isLoading && paginatedData.length === 0">
-            <td :colspan="columns.length + 1" class="text-center px-6 py-4 text-gray-400">
+          <tr v-if="isLoading">
+            <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
+              Loading...
+            </td>
+          </tr>
+
+          <tr v-else-if="paginatedData.length === 0">
+            <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
               No results found.
             </td>
           </tr>
 
-          <tr v-if="isLoading">
-            <td :colspan="columns.length + 1" class="text-center px-6 py-4 text-gray-400">
-              Loading...
-            </td>
-          </tr>
           <tr
+            v-else
             v-for="employee in paginatedData"
             :key="employee.id"
             class="border-b hover:bg-light transition"
@@ -138,7 +151,12 @@ const changeSort = (key) => {
             >
               {{ employee[column.key] }}
             </td>
-            <td class="px-6 py-4 flex gap-2">
+            <td class="px-6 py-4 flex justify-between gap-2">
+              <IconBlock
+                name="mdi:eye"
+                class="cursor-pointer text-green-500"
+                @click="$emit('view', employee.id)"
+              />
               <IconBlock
                 name="mdi:pencil"
                 class="cursor-pointer text-blue-500"
