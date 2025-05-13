@@ -47,7 +47,7 @@ const addEmployee = () => {
           <InputControl
             ref="nameInput"
             v-model="name"
-            class="w-1/2"
+            class="flex-grow-[4]"
             type="text"
             name="Name"
             placeholder="John Doe"
@@ -59,7 +59,7 @@ const addEmployee = () => {
           <InputControl
             ref="occupationInput"
             v-model="occupation"
-            class="w-2/5"
+            class="flex-grow"
             type="text"
             name="Occupation"
             placeholder="Frontend Developer"
@@ -70,7 +70,7 @@ const addEmployee = () => {
           <InputControl
             ref="departmentInput"
             v-model="department"
-            class="w-2/5"
+            class="flex-grow-[4]"
             type="text"
             name="Department"
             placeholder="Engineering"
@@ -81,11 +81,11 @@ const addEmployee = () => {
           <InputControl
             ref="dateInput"
             v-model="dateOfEmployment"
-            class="w-1/2"
+            class="flex-grow"
             type="text"
             name="Date of employement"
             placeholder="25/05/2025"
-            label="Occupation"
+            label="Date of employement"
             format="date"
             :validate="[{ type: 'required' }, { type: 'date' }]"
           ></InputControl>
@@ -98,7 +98,7 @@ const addEmployee = () => {
     </CardElement>
 
     <CardElement class="bg-white w-1/2">
-      <h2 class="text-lg font-semibold mb-4">Quick Action: Add User</h2>
+      <h2 class="text-lg font-semibold mb-4">Quick Action: View Recently Added Employees</h2>
     </CardElement>
   </div>
 </template>
