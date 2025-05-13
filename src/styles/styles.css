@@ -20,6 +20,10 @@
   @apply font-outfit;
 }
 
+body {
+  @apply w-full;
+}
+
 @-moz-document url-prefix() {
   html {
     scrollbar-color: var('--color-secondary') var('--color-light');
