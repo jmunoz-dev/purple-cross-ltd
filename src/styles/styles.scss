@@ -18,12 +18,13 @@
   --color-white: #f8f8f8;
 }
 
+html,
+body,
+#app {
+  @apply w-full h-full;
+}
 #app {
   @apply font-outfit;
-}
-
-body {
-  @apply w-full;
 }
 
 @-moz-document url-prefix() {

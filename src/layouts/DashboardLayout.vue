@@ -15,15 +15,15 @@ const handleVisibility = (menuOpen) => {
 </script>
 
 <template>
-  <div class="flex h-dvh bg-light text-text">
+  <div class="flex bg-light text-text h-full">
     <!-- Sidebar -->
     <SidebarElement @toggle-sidebar="handleVisibility" />
     <!-- Main Content -->
-    <div :class="dynamicClass" class="flex-1 flex-col">
+    <div :class="dynamicClass" class="flex flex-col w-full h-full">
       <!-- Topbar -->
       <TopbarElement />
       <!-- Content Slot -->
-      <main class="p-6 overflow-y-auto flex-1 bg-light">
+      <main class="p-6 overflow-y-auto flex bg-light h-full">
         <RouterView />
       </main>
     </div>

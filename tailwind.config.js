@@ -6,48 +6,62 @@ export default {
       borderRadius: {
         radius: '0.75rem',
       },
+      boxShadow: {
+        'bottom-light':
+          '0px 4px 6px -4px rgba(1, 15, 49, 0.12), 0px 8px 8px -4px rgba(1, 15, 49, 0.08)',
+        'bottom-medium':
+          '0px 8px 18px -6px rgba(1, 15, 49, 0.12), 0px 12px 42px -4px rgba(1, 15, 49, 0.12)',
+        'bottom-strong':
+          '0px 8px 28px -6px rgba(1, 15, 49, 0.12), 0px 18px 88px -4px rgba(1, 15, 49, 0.14)',
+        'top-light':
+          '0px -4px 6px -4px rgba(1, 15, 49, 0.12), 0px -8px 8px -4px rgba(1, 15, 49, 0.08)',
+        'top-medium':
+          '0px -8px 18px -6px rgba(1, 15, 49, 0.12), 0px -12px 42px -4px rgba(1, 15, 49, 0.12)',
+        'top-strong':
+          '0px -8px 28px -6px rgba(1, 15, 49, 0.12), 0px -18px 88px -4px rgba(1, 15, 49, 0.14)',
+      },
       colors: {
         primary: '#0d1b44',
-        'primary-hover': '#0a1535', // Un tono más oscuro para hover
-        'primary-active': '#08102a', // Un tono aún más oscuro para el estado activo
+        'primary-hover': '#0a1535',
+        'primary-active': '#08102a',
 
         secondary: '#1e2a64',
-        'secondary-hover': '#18225b', // Un tono más oscuro para hover
-        'secondary-active': '#141e4e', // Un tono más oscuro para el estado activo
+        'secondary-hover': '#18225b',
+        'secondary-active': '#141e4e',
 
         accent: '#f49342',
-        'accent-hover': '#e7823b', // Un tono más oscuro para hover
-        'accent-active': '#d27334', // Un tono más oscuro para el estado activo
+        'accent-hover': '#e7823b',
+        'accent-active': '#d27334',
 
         disabled: '#d1d3d8',
 
         highlight: '#2ca6f7',
-        'highlight-hover': '#2496e0', // Un tono más oscuro para hover
-        'highlight-active': '#1d86c8', // Un tono más oscuro para el estado activo
+        'highlight-hover': '#2496e0',
+        'highlight-active': '#1d86c8',
 
         light: '#f2f3f8',
-        'light-hover': '#e1e3ec', // Un tono más oscuro para hover
-        'light-active': '#d0d3e0', // Un tono más oscuro para el estado activo
+        'light-hover': '#e1e3ec',
+        'light-active': '#d0d3e0',
 
         neutral: '#c5c7d0',
-        'neutral-hover': '#a9abb6', // Un tono más oscuro para hover
-        'neutral-active': '#8d8f9c', // Un tono más oscuro para el estado activo
+        'neutral-hover': '#a9abb6',
+        'neutral-active': '#8d8f9c',
 
         success: '#60c18c',
-        'success-hover': '#53b67d', // Un tono más oscuro para hover
-        'success-active': '#46a56f', // Un tono más oscuro para el estado activo
+        'success-hover': '#53b67d',
+        'success-active': '#46a56f',
 
         danger: '#e76a6a',
-        'danger-hover': '#d15e5e', // Un tono más oscuro para hover
-        'danger-active': '#b75353', // Un tono más oscuro para el estado activo
+        'danger-hover': '#d15e5e',
+        'danger-active': '#b75353',
 
         text: '#3c3f4e',
-        'text-hover': '#353740', // Un tono más oscuro para hover
-        'text-active': '#2e2f39', // Un tono más oscuro para el estado activo
+        'text-hover': '#353740',
+        'text-active': '#2e2f39',
 
-        white: '#f8f8f8', // Blanco ceniza muy suave
-        'white-hover': '#e4e4e4', // Un blanco ligeramente más oscuro para hover
-        'white-active': '#d9d9d9', // Un blanco ligeramente más oscuro para el estado activo
+        white: '#f8f8f8',
+        'white-hover': '#e4e4e4',
+        'white-active': '#d9d9d9',
       },
       fontFamily: {
         outfit: ['Outfit', 'sans-serif'],

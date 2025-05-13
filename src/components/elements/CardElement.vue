@@ -12,4 +12,4 @@ defineProps({
   </div>
 </template>
 
-<style lang="scss" src="#scss/components/card.scss" />
+<style lang="scss" src="@/styles/components/card.scss" />
