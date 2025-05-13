@@ -99,7 +99,6 @@ const changeSort = (key) => {
       :style="{ minHeight: tableMinHeight }"
     >
       <table class="w-full min-w-[600px] text-sm text-left text-text">
-        <!-- Headers siempre visibles -->
         <thead class="bg-light uppercase text-xs text-gray-500 border-b border-neutral">
           <tr>
             <th
@@ -107,7 +106,7 @@ const changeSort = (key) => {
               :key="col.key"
               @click="col.sortable ? changeSort(col.key) : null"
               class="px-6 py-3 cursor-pointer"
-              :class="{ 'sticky left-0 z-10 bg-white border-r': index === 0 }"
+              :class="{ 'sticky top-0 left-0 z-10 bg-white border-r': index === 0 }"
             >
               {{ col.label }}
               <IconBlock
@@ -120,7 +119,6 @@ const changeSort = (key) => {
           </tr>
         </thead>
 
-        <!-- Contenido dinámico -->
         <tbody>
           <tr v-if="isLoading">
             <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
@@ -141,12 +139,11 @@ const changeSort = (key) => {
             class="border-b hover:bg-light transition"
           >
             <td
-              v-for="column in columns"
+              v-for="(column, index) in columns"
               :key="column.key"
               class="px-6 py-4 whitespace-nowrap"
               :class="{
-                'sticky-col': column.key === columns[0].key,
-                'bg-white': column.key === columns[0].key,
+                'sticky top-0 left-0 bg-white': index === 0,
               }"
             >
               {{ employee[column.key] }}
