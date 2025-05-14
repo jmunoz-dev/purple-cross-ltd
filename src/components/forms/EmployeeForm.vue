@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import InputControl from '@/components/controls/InputControl.vue'
 import ButtonBlock from '@/components/blocks/ButtonBlock.vue'
 import { addEmployeeAction } from '@/modules/actions'
+import IconBlock from '../blocks/IconBlock.vue'
 
 const emit = defineEmits(['employee-created'])
 
@@ -97,7 +98,15 @@ const addEmployee = async () => {
 
     <div class="w-full">
       <ButtonBlock type="secondary" @button-clicked="addEmployee" :disabled="isSubmitting">
-        Add new employee
+        <div class="flex items-center gap-2">
+          <span>{{ isSubmitting ? 'Saving...' : 'Add new employee' }}</span>
+          <IconBlock
+            v-if="isSubmitting"
+            name="svg-spinners:180-ring-with-bg"
+            class="animate-spin"
+          />
+          <IconBlock v-else name="mdi:content-save" />
+        </div>
       </ButtonBlock>
     </div>
   </div>
