@@ -24,8 +24,10 @@ const sortAsc = ref(true)
 const isLoading = ref(false)
 const paginatedData = ref([])
 
+const visibleColumns = computed(() => props.columns.filter((col) => col.visible !== false))
+
 const searchableKeys = computed(() =>
-  props.columns.filter((col) => col.searchable !== false).map((col) => col.key),
+  visibleColumns.value.filter((col) => col.searchable !== false).map((col) => col.key),
 )
 
 const filteredData = computed(() => {
@@ -36,7 +38,7 @@ const filteredData = computed(() => {
 })
 
 const sortedData = computed(() => {
-  const isValidSortKey = props.columns.some((col) => col.key === sortKey.value)
+  const isValidSortKey = visibleColumns.value.some((col) => col.key === sortKey.value)
   if (!isValidSortKey) return filteredData.value
 
   return [...filteredData.value].sort((a, b) => {
@@ -92,7 +94,7 @@ const changeSort = (key) => {
         class="flex-grow shrink-0"
       />
       <div class="flex gap-2 grow shrink-0 sm:shrink-1 sm:grow-0 justify-between">
-        <ButtonBlock type="secondary">
+        <ButtonBlock type="secondary" @button-clicked="$emit('import')">
           <IconBlock name="mdi:table-import"></IconBlock>
           Import
         </ButtonBlock>
@@ -113,7 +115,7 @@ const changeSort = (key) => {
           <thead class="bg-light uppercase text-xs text-gray-500 border-b border-neutral">
             <tr>
               <th
-                v-for="(col, index) in columns"
+                v-for="(col, index) in visibleColumns"
                 :key="col.key"
                 @click="col.sortable ? changeSort(col.key) : null"
                 class="px-6 py-3 cursor-pointer"
@@ -132,13 +134,13 @@ const changeSort = (key) => {
 
           <tbody>
             <tr v-if="isLoading">
-              <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
+              <td :colspan="visibleColumns.length + 1" class="text-center px-6 py-8 text-gray-400">
                 Loading...
               </td>
             </tr>
 
             <tr v-else-if="paginatedData.length === 0">
-              <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
+              <td :colspan="visibleColumns.length + 1" class="text-center px-6 py-8 text-gray-400">
                 No results found.
               </td>
             </tr>
@@ -150,7 +152,7 @@ const changeSort = (key) => {
               class="border-b hover:bg-light transition"
             >
               <td
-                v-for="(column, index) in columns"
+                v-for="(column, index) in visibleColumns"
                 :key="column.key"
                 class="px-6 py-4 whitespace-nowrap"
                 :class="{
