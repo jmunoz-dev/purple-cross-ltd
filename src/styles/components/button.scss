@@ -23,13 +23,13 @@
   }
 
   &.disabled {
-    @apply pointer-events-none bg-disabled text-disabled font-normal border-transparent text-text;
+    @apply pointer-events-none bg-disabled font-normal border-transparent text-text;
 
     &:hover,
     &:focus,
     &:focus-visible,
     &:active {
-      @apply bg-disabled text-disabled border-transparent text-text;
+      @apply bg-disabled border-transparent text-text;
     }
   }
 }

@@ -4,9 +4,10 @@ import IconBlock from '@/components/blocks/IconBlock.vue'
 import ModalElement from '@/components/elements/ModalElement.vue'
 import TableElement from '@/components/elements/TableElement.vue'
 import EmployeeForm from '@/components/forms/EmployeeForm.vue'
+import { getEmploymentStatus, getTerminationStatus } from '@/modules/actions'
 import router from '@/router'
 import { useEmployeeStore } from '@/stores/employee'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const storeEmployee = useEmployeeStore()
 const showConfirmationModal = ref(false)
@@ -21,6 +22,14 @@ const columns = [
   { key: 'dateOfEmployment', label: 'Employment', sortable: true },
   { key: 'terminationDate', label: 'Termination', sortable: true },
 ]
+
+const tableData = computed(() =>
+  storeEmployee.employees.map((employee) => ({
+    ...employee,
+    dateOfEmployment: getEmploymentStatus(employee.dateOfEmployment),
+    terminationDate: getTerminationStatus(employee.terminationDate),
+  })),
+)
 
 const handleView = (id) => {
   storeEmployee.isEditing = false
@@ -52,7 +61,7 @@ const deleteData = async () => {
     <div class="w-full">
       <TableElement
         :key="storeEmployee.employees"
-        :data="storeEmployee.employees"
+        :data="tableData"
         :columns="columns"
         :perPage="5"
         @view="handleView"
