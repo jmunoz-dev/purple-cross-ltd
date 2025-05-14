@@ -59,7 +59,7 @@ const addEmployee = async () => {
       class="flex-grow-[4]"
       type="text"
       name="Name"
-      placeholder="John Doe"
+      placeholder="Jorge Muñoz"
       label="Name"
       description="Employee full name"
       :validate="[{ type: 'required' }]"

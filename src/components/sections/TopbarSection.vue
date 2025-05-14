@@ -5,11 +5,11 @@
   >
     <h1 class="text-lg">Employee Management</h1>
     <div class="flex items-center gap-2">
-      <span class="text-sm">Welcome, John Doe</span>
+      <span class="text-sm">Welcome, Jorge Muñoz</span>
       <div
         class="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-white font-bold"
       >
-        JD
+        JM
       </div>
     </div>
   </header>
