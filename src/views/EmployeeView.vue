@@ -23,6 +23,7 @@ const columns = [
 ]
 
 const handleView = (id) => {
+  storeEmployee.isEditing = false
   router.push(`/employee/${id}`)
 }
 

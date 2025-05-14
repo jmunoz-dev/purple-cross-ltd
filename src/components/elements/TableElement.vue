@@ -135,8 +135,8 @@ const changeSort = (key) => {
 
             <tr
               v-else
-              v-for="employee in paginatedData"
-              :key="employee.id"
+              v-for="data in paginatedData"
+              :key="data.id"
               class="border-b hover:bg-light transition"
             >
               <td
@@ -147,23 +147,23 @@ const changeSort = (key) => {
                   'sticky top-0 left-0 bg-white': index === 0,
                 }"
               >
-                {{ employee[column.key] }}
+                {{ data[column.key] }}
               </td>
               <td class="px-6 py-4 flex justify-between gap-2">
                 <IconBlock
                   name="mdi:eye"
                   class="cursor-pointer text-green-500"
-                  @click="$emit('view', employee.id)"
+                  @click="$emit('view', data.id)"
                 />
                 <IconBlock
                   name="mdi:pencil"
                   class="cursor-pointer text-blue-500"
-                  @click="$emit('edit', employee.id)"
+                  @click="$emit('edit', data.id)"
                 />
                 <IconBlock
                   name="mdi:delete"
                   class="cursor-pointer text-red-500"
-                  @click="$emit('delete', employee.id)"
+                  @click="$emit('delete', data.id)"
                 />
               </td>
             </tr>

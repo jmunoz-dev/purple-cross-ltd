@@ -5,6 +5,7 @@ import { useEmployeeStore } from '@/stores/employee'
 import { useRoute, useRouter } from 'vue-router'
 import InputControl from '@/components/controls/InputControl.vue'
 import ButtonBlock from '@/components/blocks/ButtonBlock.vue'
+import IconBlock from '@/components/blocks/IconBlock.vue'
 
 const storeEmployee = useEmployeeStore()
 const route = useRoute()
@@ -25,6 +26,7 @@ const occupationInput = ref(null)
 const departmentInput = ref(null)
 const dateOfEmploymentInput = ref(null)
 const terminationDateInput = ref(null)
+const isSaving = ref(false)
 
 onMounted(() => {
   if (!employee.value) {
@@ -40,8 +42,9 @@ onMounted(() => {
   }
 })
 
-const saveEmployee = () => {
+const saveEmployee = async () => {
   if (!employee.value) return
+  isSaving.value = true
   const updatedEmployee = {
     ...employee.value,
     fullName: name.value,
@@ -50,7 +53,10 @@ const saveEmployee = () => {
     dateOfEmployment: dateOfEmployment.value,
     terminationDate: terminationDate.value || null,
   }
+
+  await new Promise((resolve) => setTimeout(resolve, 800))
   storeEmployee.updateEmployee(employeeId, updatedEmployee)
+  isSaving.value = false
 }
 
 const cancelEdit = () => {
@@ -124,10 +130,15 @@ const cancelEdit = () => {
       </div>
 
       <div class="mt-4 flex justify-end gap-4">
-        <ButtonBlock v-if="isEditing" @click="saveEmployee" type="primary">Save</ButtonBlock>
-
-        <ButtonBlock @click="cancelEdit" type="secondary">
+        <ButtonBlock @click="cancelEdit" type="secondary" :disabled="isSaving">
           {{ isEditing ? 'Cancel' : 'Go Back' }}
+        </ButtonBlock>
+        <ButtonBlock v-if="isEditing" @click="saveEmployee" type="secondary" :disabled="isSaving">
+          <div class="flex items-center gap-2">
+            <span>{{ isSaving ? 'Saving...' : 'Save' }}</span>
+            <IconBlock v-if="isSaving" name="svg-spinners:180-ring-with-bg" class="animate-spin" />
+            <IconBlock v-else name="mdi:content-save-edit" />
+          </div>
         </ButtonBlock>
       </div>
     </form>
