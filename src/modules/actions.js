@@ -63,45 +63,58 @@ export const exportDataToCSV = (data, columns, filename = 'table_export.csv') =>
 }
 
 export const importDataFromCSV = (expectedKeys = [], requiredKeys = []) => {
-  return new Promise((resolve, reject) => {
+  const createFileInput = () => {
     const input = document.createElement('input')
     input.type = 'file'
     input.accept = '.csv'
+    return input
+  }
+
+  const parseCSV = (text) => text.split(/\r?\n/).filter((line) => line.trim() !== '')
+
+  const getHeaders = (line) => line.split(',').map((h) => h.trim())
+
+  const parseRow = (line, headers) => {
+    const values = line.split(',').map((val) => val.trim().replace(/^"|"$/g, ''))
+    return headers.reduce((acc, key, i) => {
+      acc[key] = values[i] ?? ''
+      return acc
+    }, {})
+  }
+
+  const validateRequiredFields = (data, requiredKeys) => {
+    const errors = []
+    data.forEach((row, i) => {
+      requiredKeys.forEach((key) => {
+        if (!row[key] || row[key].trim() === '') {
+          errors.push(`Row ${i + 2}: '${key}' is required.`)
+        }
+      })
+    })
+    return errors
+  }
+
+  return new Promise((resolve, reject) => {
+    const input = createFileInput()
 
     input.onchange = (e) => {
       const file = e.target.files[0]
       if (!file) return reject('No file selected.')
 
       const reader = new FileReader()
-      reader.onload = () => {
-        const text = reader.result
-        const lines = text.split(/\r?\n/).filter((line) => line.trim() !== '')
 
+      reader.onload = () => {
+        const lines = parseCSV(reader.result)
         if (lines.length === 0) return reject('CSV file is empty.')
-        const headers = lines[0].split(',').map((h) => h.trim())
+
+        const headers = getHeaders(lines[0])
         const missingKeys = expectedKeys.filter((k) => !headers.includes(k))
         if (missingKeys.length > 0) {
           return reject(`Missing expected fields: ${missingKeys.join(', ')}`)
         }
 
-        const data = lines.slice(1).map((line) => {
-          const values = line.split(',').map((val) => val.trim().replace(/^"|"$/g, ''))
-          const entry = {}
-          headers.forEach((key, i) => {
-            entry[key] = values[i] ?? ''
-          })
-          return entry
-        })
-
-        const errors = []
-        data.forEach((row, i) => {
-          requiredKeys.forEach((key) => {
-            if (!row[key] || row[key].trim() === '') {
-              errors.push(`Row ${i + 2}: '${key}' is required.`)
-            }
-          })
-        })
-
+        const data = lines.slice(1).map((line) => parseRow(line, headers))
+        const errors = validateRequiredFields(data, requiredKeys)
         if (errors.length > 0) return reject(errors)
 
         resolve(data)
