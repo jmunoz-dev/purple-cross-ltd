@@ -21,7 +21,7 @@ const toggleSidebar = () => {
 </script>
 
 <template>
-  <div class="flex z-10 h-full flex-grow shrink-0">
+  <div class="flex z-10 h-full">
     <div
       :class="isMenuOpen ? 'w-64' : 'w-16'"
       class="bg-primary text-white flex flex-col transition-all duration-300 ease-in-out h-full shrink-0"

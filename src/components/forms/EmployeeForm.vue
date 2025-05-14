@@ -95,7 +95,7 @@ const addEmployee = async () => {
       :validate="[{ type: 'date' }]"
     />
 
-    <div class="w-full mt-2">
+    <div class="w-full">
       <ButtonBlock type="secondary" @button-clicked="addEmployee" :disabled="isSubmitting">
         Add new employee
       </ButtonBlock>

@@ -9,7 +9,9 @@ const { isMobile, isTablet } = useDevice()
 
 const handleVisibility = (menuOpen) => {
   if (isMobile.value || isTablet.value) {
-    menuOpen ? (dynamicClass.value = 'overflow-hidden blur-sm') : (dynamicClass.value = '')
+    menuOpen
+      ? (dynamicClass.value = 'overflow-hidden blur-sm pointer-events-none')
+      : (dynamicClass.value = '')
   }
 }
 </script>
@@ -20,12 +22,12 @@ const handleVisibility = (menuOpen) => {
     <SidebarElement @toggle-sidebar="handleVisibility" />
 
     <!-- Main Content -->
-    <div :class="dynamicClass" class="flex flex-col w-full h-screen flex-grow relative">
+    <div :class="dynamicClass" class="w-full overflow-x-hidden">
       <!-- Topbar -->
       <TopbarElement />
 
       <!-- Content Slot -->
-      <main class="p-6 overflow-y-auto flex bg-light h-full">
+      <main :class="dynamicClass" class="p-6 flex bg-light flex-1">
         <RouterView />
       </main>
     </div>

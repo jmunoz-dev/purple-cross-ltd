@@ -47,18 +47,20 @@ const deleteData = async () => {
 </script>
 
 <template>
-  <div class="w-full flex flex-col justify-between">
-    <TableElement
-      :key="storeEmployee.employees"
-      :data="storeEmployee.employees"
-      :columns="columns"
-      :perPage="5"
-      @view="handleView"
-      @edit="handleEdit"
-      @delete="handleDelete"
-    ></TableElement>
+  <div class="flex flex-nowrap flex-col gap-8 h-fit w-full">
+    <div class="w-full">
+      <TableElement
+        :key="storeEmployee.employees"
+        :data="storeEmployee.employees"
+        :columns="columns"
+        :perPage="5"
+        @view="handleView"
+        @edit="handleEdit"
+        @delete="handleDelete"
+      ></TableElement>
+    </div>
 
-    <div class="flex justify-end">
+    <div class="flex w-full justify-end">
       <ButtonBlock @button-clicked="showCreateModal = !showCreateModal">
         <div class="flex gap-2">
           Add new employee
@@ -67,6 +69,7 @@ const deleteData = async () => {
       </ButtonBlock>
     </div>
   </div>
+
   <!-- Delete confirmation modal -->
   <ModalElement
     :show="showConfirmationModal"

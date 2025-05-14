@@ -95,79 +95,81 @@ const changeSort = (key) => {
 
     <!-- Table -->
     <div
-      class="overflow-x-auto relative bg-white shadow rounded-lg transition-all duration-300"
+      class="overflow-x-auto w-full relative bg-white shadow rounded-lg transition-all duration-300"
       :style="{ minHeight: tableMinHeight }"
     >
-      <table class="w-full min-w-[600px] text-sm text-left text-text">
-        <thead class="bg-light uppercase text-xs text-gray-500 border-b border-neutral">
-          <tr>
-            <th
-              v-for="(col, index) in columns"
-              :key="col.key"
-              @click="col.sortable ? changeSort(col.key) : null"
-              class="px-6 py-3 cursor-pointer"
-              :class="{ 'sticky top-0 left-0 z-10 bg-white border-r': index === 0 }"
+      <div class="max-w-full">
+        <table class="w-full text-sm text-left text-text">
+          <thead class="bg-light uppercase text-xs text-gray-500 border-b border-neutral">
+            <tr>
+              <th
+                v-for="(col, index) in columns"
+                :key="col.key"
+                @click="col.sortable ? changeSort(col.key) : null"
+                class="px-6 py-3 cursor-pointer"
+                :class="{ 'sticky top-0 left-0 z-10 bg-white border-r': index === 0 }"
+              >
+                {{ col.label }}
+                <IconBlock
+                  v-if="col.sortable && sortKey === col.key"
+                  :name="sortAsc ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+                  class="inline-block w-4 h-4 ml-1"
+                />
+              </th>
+              <th class="px-6 py-3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr v-if="isLoading">
+              <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
+                Loading...
+              </td>
+            </tr>
+
+            <tr v-else-if="paginatedData.length === 0">
+              <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
+                No results found.
+              </td>
+            </tr>
+
+            <tr
+              v-else
+              v-for="employee in paginatedData"
+              :key="employee.id"
+              class="border-b hover:bg-light transition"
             >
-              {{ col.label }}
-              <IconBlock
-                v-if="col.sortable && sortKey === col.key"
-                :name="sortAsc ? 'mdi:chevron-up' : 'mdi:chevron-down'"
-                class="inline-block w-4 h-4 ml-1"
-              />
-            </th>
-            <th class="px-6 py-3"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-if="isLoading">
-            <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
-              Loading...
-            </td>
-          </tr>
-
-          <tr v-else-if="paginatedData.length === 0">
-            <td :colspan="columns.length + 1" class="text-center px-6 py-8 text-gray-400">
-              No results found.
-            </td>
-          </tr>
-
-          <tr
-            v-else
-            v-for="employee in paginatedData"
-            :key="employee.id"
-            class="border-b hover:bg-light transition"
-          >
-            <td
-              v-for="(column, index) in columns"
-              :key="column.key"
-              class="px-6 py-4 whitespace-nowrap"
-              :class="{
-                'sticky top-0 left-0 bg-white': index === 0,
-              }"
-            >
-              {{ employee[column.key] }}
-            </td>
-            <td class="px-6 py-4 flex justify-between gap-2">
-              <IconBlock
-                name="mdi:eye"
-                class="cursor-pointer text-green-500"
-                @click="$emit('view', employee.id)"
-              />
-              <IconBlock
-                name="mdi:pencil"
-                class="cursor-pointer text-blue-500"
-                @click="$emit('edit', employee.id)"
-              />
-              <IconBlock
-                name="mdi:delete"
-                class="cursor-pointer text-red-500"
-                @click="$emit('delete', employee.id)"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <td
+                v-for="(column, index) in columns"
+                :key="column.key"
+                class="px-6 py-4 whitespace-nowrap"
+                :class="{
+                  'sticky top-0 left-0 bg-white': index === 0,
+                }"
+              >
+                {{ employee[column.key] }}
+              </td>
+              <td class="px-6 py-4 flex justify-between gap-2">
+                <IconBlock
+                  name="mdi:eye"
+                  class="cursor-pointer text-green-500"
+                  @click="$emit('view', employee.id)"
+                />
+                <IconBlock
+                  name="mdi:pencil"
+                  class="cursor-pointer text-blue-500"
+                  @click="$emit('edit', employee.id)"
+                />
+                <IconBlock
+                  name="mdi:delete"
+                  class="cursor-pointer text-red-500"
+                  @click="$emit('delete', employee.id)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Pagination -->
