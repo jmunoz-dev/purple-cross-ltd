@@ -4,7 +4,7 @@ import IconBlock from '@/components/blocks/IconBlock.vue'
 import ModalElement from '@/components/elements/ModalElement.vue'
 import TableElement from '@/components/elements/TableElement.vue'
 import EmployeeForm from '@/components/forms/EmployeeForm.vue'
-import { getEmploymentStatus, getTerminationStatus } from '@/modules/actions'
+import { getEmploymentStatus, getTerminationStatus, exportDataToCSV } from '@/modules/actions'
 import router from '@/router'
 import { useEmployeeStore } from '@/stores/employee'
 import { computed, ref } from 'vue'
@@ -54,6 +54,10 @@ const deleteData = async () => {
   showConfirmationModal.value = false
   loadingButton.value = false
 }
+
+const downloadData = async (data) => {
+  exportDataToCSV(data, columns, 'table_data.csv')
+}
 </script>
 
 <template>
@@ -67,6 +71,7 @@ const deleteData = async () => {
         @view="handleView"
         @edit="handleEdit"
         @delete="handleDelete"
+        @export="downloadData"
       ></TableElement>
     </div>
 

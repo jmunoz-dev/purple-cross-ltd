@@ -96,7 +96,7 @@ const changeSort = (key) => {
           <IconBlock name="mdi:table-import"></IconBlock>
           Import
         </ButtonBlock>
-        <ButtonBlock type="secondary">
+        <ButtonBlock type="secondary" @button-clicked="$emit('export', sortedData)">
           Export
           <IconBlock name="mdi:table-export"></IconBlock>
         </ButtonBlock>
