@@ -80,17 +80,27 @@ const changeSort = (key) => {
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col gap-2">
     <!-- Filter Input -->
-    <div class="mb-4">
+    <div class="flex flex-wrap-reverse sm:flex-row justify-between items-center gap-4">
       <InputControl
         type="text"
         name="Search by"
         v-model="searchQuery"
         label="Search"
         placeholder="Search by name, occupation, department"
-        class="w-full"
-      ></InputControl>
+        class="flex-grow shrink-0"
+      />
+      <div class="flex gap-2 grow shrink-0 sm:shrink-1 sm:grow-0 justify-between">
+        <ButtonBlock type="secondary">
+          <IconBlock name="mdi:table-import"></IconBlock>
+          Import
+        </ButtonBlock>
+        <ButtonBlock type="secondary">
+          Export
+          <IconBlock name="mdi:table-export"></IconBlock>
+        </ButtonBlock>
+      </div>
     </div>
 
     <!-- Table -->
@@ -174,12 +184,16 @@ const changeSort = (key) => {
 
     <!-- Pagination -->
     <div class="mt-4 flex justify-end gap-2">
-      <ButtonBlock @click="currentPage--" :disabled="currentPage === 1" type="secondary">
+      <ButtonBlock @button-clicked="currentPage--" :disabled="currentPage === 1" type="secondary">
         Previous
       </ButtonBlock>
       <span class="px-2 text-sm self-center">Page {{ currentPage }} of {{ totalPages }}</span>
 
-      <ButtonBlock @click="currentPage++" :disabled="currentPage === totalPages" type="secondary">
+      <ButtonBlock
+        @button-clicked="currentPage++"
+        :disabled="currentPage === totalPages"
+        type="secondary"
+      >
         Next
       </ButtonBlock>
     </div>

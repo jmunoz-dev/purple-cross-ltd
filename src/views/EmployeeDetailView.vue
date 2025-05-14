@@ -130,10 +130,15 @@ const cancelEdit = () => {
       </div>
 
       <div class="mt-4 flex justify-end gap-4">
-        <ButtonBlock @click="cancelEdit" type="secondary" :disabled="isSaving">
+        <ButtonBlock @button-clicked="cancelEdit" type="secondary" :disabled="isSaving">
           {{ isEditing ? 'Cancel' : 'Go Back' }}
         </ButtonBlock>
-        <ButtonBlock v-if="isEditing" @click="saveEmployee" type="secondary" :disabled="isSaving">
+        <ButtonBlock
+          v-if="isEditing"
+          @button-clicked="saveEmployee"
+          type="secondary"
+          :disabled="isSaving"
+        >
           <div class="flex items-center gap-2">
             <span>{{ isSaving ? 'Saving...' : 'Save' }}</span>
             <IconBlock v-if="isSaving" name="svg-spinners:180-ring-with-bg" class="animate-spin" />
