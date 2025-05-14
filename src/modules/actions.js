@@ -32,7 +32,7 @@ export const getTerminationStatus = (date) => {
   return terminationDate > now ? `To be terminated: ${date}` : `Terminated: ${date}`
 }
 
-export function exportDataToCSV(data, columns, filename = 'table_export.csv') {
+export const exportDataToCSV = (data, columns, filename = 'table_export.csv') => {
   const rows = [columns.map((col) => col.label)]
 
   data.forEach((entry) => {
@@ -60,4 +60,57 @@ export function exportDataToCSV(data, columns, filename = 'table_export.csv') {
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+}
+
+export const importDataFromCSV = (expectedKeys = [], requiredKeys = []) => {
+  return new Promise((resolve, reject) => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = '.csv'
+
+    input.onchange = (e) => {
+      const file = e.target.files[0]
+      if (!file) return reject('No file selected.')
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        const text = reader.result
+        const lines = text.split(/\r?\n/).filter((line) => line.trim() !== '')
+
+        if (lines.length === 0) return reject('CSV file is empty.')
+        const headers = lines[0].split(',').map((h) => h.trim())
+        const missingKeys = expectedKeys.filter((k) => !headers.includes(k))
+        if (missingKeys.length > 0) {
+          return reject(`Missing expected fields: ${missingKeys.join(', ')}`)
+        }
+
+        const data = lines.slice(1).map((line) => {
+          const values = line.split(',').map((val) => val.trim().replace(/^"|"$/g, ''))
+          const entry = {}
+          headers.forEach((key, i) => {
+            entry[key] = values[i] ?? ''
+          })
+          return entry
+        })
+
+        const errors = []
+        data.forEach((row, i) => {
+          requiredKeys.forEach((key) => {
+            if (!row[key] || row[key].trim() === '') {
+              errors.push(`Row ${i + 2}: '${key}' is required.`)
+            }
+          })
+        })
+
+        if (errors.length > 0) return reject(errors)
+
+        resolve(data)
+      }
+
+      reader.onerror = () => reject('Error reading file.')
+      reader.readAsText(file)
+    }
+
+    input.click()
+  })
 }
